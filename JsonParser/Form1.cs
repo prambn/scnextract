@@ -68,20 +68,20 @@ namespace JsonParser
             string extractedTexts = string.Empty;
 
             // 선택지 텍스트 추출
-            foreach (var scene in scenes)
-            {
-                var selects = scene.SelectToken("selects");
-                if (selects != null)
-                {
-                    foreach (var select in selects)
-                    {
-                        var text = select.SelectToken("text");
-                        extractedTexts +=
-                            $"□{text}\r\n" +
-                            $"■{text}\r\n\r\n";
-                    }
-                }
-            }
+            //foreach (var scene in scenes)
+            //{
+            //    var selects = scene.SelectToken("selects");
+            //    if (selects != null)
+            //    {
+            //        foreach (var select in selects)
+            //        {
+            //            var text = select.SelectToken("text");
+            //            extractedTexts +=
+            //                $"□{text}\r\n" +
+            //                $"■{text}\r\n\r\n";
+            //        }
+            //    }
+            //}
 
             // 게임 텍스트 추출
             foreach (var scene in scenes)
@@ -93,13 +93,14 @@ namespace JsonParser
                     {
                         string name = text[0].ToString(),
                                displayName = text[1].ToString(),
-                               line = text[2].ToString();
+                               name2 = text[2][0].ToString(),
+                               line = text[2][1].ToString();
 
                         // 문자열 속 \n을 제거
                         line = line.Replace("\n", "");
 
                         extractedTexts += checkBox1.Checked ?
-                            $"//{name}//{displayName}\r\n" +
+                            $"//{name}//{displayName}//{line}\r\n" +
                             // $"□{line}\r\n" +
                             $"■{line}\r\n\r\n"
                             :
@@ -173,19 +174,19 @@ namespace JsonParser
 
             for (int i = 0; i < jo["scenes"].Count(); i++)
             {
-                try
-                {
-                    for (int j = 0; j < jo["scenes"][i]["selects"].Count(); j++)
-                    {
-                        jo["scenes"][i]["selects"][j]["text"] = translatedTexts[3 * indexSelect + 1].Substring(1);
+                //try
+                //{
+                //    for (int j = 0; j < jo["scenes"][i]["selects"].Count(); j++)
+                //    {
+                //        jo["scenes"][i]["selects"][j]["text"] = translatedTexts[3 * indexSelect + 1].Substring(1);
 
-                        indexSelect++;
-                    }
-                }
-                catch
-                {
-                    // 아무것도 안 함
-                }
+                //        indexSelect++;
+                //    }
+                //}
+                //catch
+                //{
+                //    // 아무것도 안 함
+                //}
 
                 try
                 {
